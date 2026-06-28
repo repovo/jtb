@@ -1,5 +1,10 @@
 
-一个基于 Cloudflare Workers 和 KV 存储构建的简易在线剪贴板短链共享服务。
+# CloudPaste - 在线剪贴板 📋
+
+![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-orange?style=flat-square&logo=cloudflare)
+
+一个基于 Cloudflare Workers 的在线剪贴板分享服务。
+
 
 
 
