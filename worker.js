@@ -3,7 +3,7 @@ addEventListener('fetch', event => {
 })
 
 // 用于生成默认短链接的随机字符集函数
-function generateShortId(length = 4) {
+function generateShortId(length = 7) { //短链长度7 可自定义长度
   const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   let result = '';
   for (let i = 0; i < length; i++) {
@@ -65,7 +65,7 @@ async function handleRequest(request) {
           }
           storageKey = `share_${customPath}`;
         } else {
-          storageKey = `share_${generateShortId(4)}`;
+          storageKey = `share_${generateShortId(7)}`; //短链长度7 可自定义长度
         }
       }
 
