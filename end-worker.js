@@ -23,22 +23,38 @@ async function handleRequest(request) {
     return await handleReadKV(`share_${shortId}`);
   }
 
-  // 获取安全入口 Token 变量
+  // 获取安全入口 Token 变量（Cloudflare 后台配置的变量）
   const globalToken = globalThis.TOKEN ? globalThis.TOKEN.trim() : '';
 
-  // 👉 2. 权限校验兜底逻辑
+  // 👉 2. 权限校验兜底逻辑 (优化后：支持完全公开与随时开启)
   const tokenPath = globalToken ? `/${globalToken}` : '';
   const homePath = tokenPath || '/';
 
-  if (globalToken && path !== homePath && !path.startsWith(`${tokenPath}/`)) {
-    return Response.redirect('https://www.google.com', 302);
-  }
-  
-  if (!globalToken && path !== '/') {
-    if(['/save', '/read', '/clear', '/manifest.json'].includes(path) === false) {
+  // 各种内部安全路由路径
+  const savePath = `${tokenPath}/save`;
+  const readPath = `${tokenPath}/read`;
+  const clearPath = `${tokenPath}/clear`;
+  const manifestPath = `${tokenPath}/manifest.json`;
+
+  // 【核心修改点】
+  if (globalToken) {
+    // 开启了 Token 时的严格校验：必须匹配带 Token 的路径，否则重定向
+    if (path !== homePath && 
+        path !== savePath && 
+        path !== readPath && 
+        path !== clearPath && 
+        path !== manifestPath) {
+      return Response.redirect('https://www.google.com', 302);
+    }
+  } else {
+    // 没设置 Token 时：属于完全公开模式
+    // 只放行主页和基础路由，其余未知路径依然重定向兜底
+    if (path !== '/' && 
+        !['/save', '/read', '/clear', '/manifest.json'].includes(path)) {
       return Response.redirect('https://www.google.com', 302);
     }
   }
+
 
   // 定义各种内部安全路由路径
   const savePath = `${tokenPath}/save`;
