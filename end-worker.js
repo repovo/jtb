@@ -256,7 +256,7 @@ const htmlTemplate = `
     
     /* 分享结果区域 */
     .share-result-area { display: none; flex-direction: column; align-items: stretch; background: rgba(46, 204, 113, 0.15); border: 1px dashed rgba(46, 204, 113, 0.4); padding: 12px; border-radius: 8px; margin-bottom: 15px; }
-    .share-url-text { font-size: 14px; font-weight: bold; color: #2ecc71; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; margin-right: 10px; }
+    .share-url-text { font-size: 14px; font-weight: bold; color: #2ecc71; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; margin-bottom: 8px; }
     .inline-copy-btn { background: #2ecc71; color: #fff; border: none; padding: 6px 12px; font-size: 12px; border-radius: 4px; cursor: pointer; white-space: nowrap; }
     .inline-copy-btn:hover { background: #27ae60; }
     
